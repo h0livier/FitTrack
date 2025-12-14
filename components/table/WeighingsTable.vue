@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import type { Weighing } from '../../composables/useWeightService'
 import { useWeightService } from '../../composables/useWeightService'
 import AppDialog from '../AppDialog.vue'
@@ -11,6 +11,16 @@ const weighings = ref<Weighing[]>([])
 const editingWeighing = ref<Weighing | null>(null)
 const dialogOpen = ref(false)
 const isAddMode = ref(false)
+const itemsPerPage = 10
+const currentPage = ref(1)
+
+const totalPages = computed(() => Math.ceil(weighings.value.length / itemsPerPage))
+
+const paginatedWeighings = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return weighings.value.slice(start, end)
+})
 
 function load() {
   // load and sort by date desc
@@ -19,6 +29,7 @@ function load() {
     const db = new Date(b.date).getTime()
     return db - da
   })
+  currentPage.value = 1
 }
 
 onMounted(() => load())
@@ -81,7 +92,7 @@ function closeDialog() {
         </tr>
       </thead>
       <tbody>
-        <tr v-for="w in weighings" :key="w.id">
+        <tr v-for="w in paginatedWeighings" :key="w.id">
           <td>{{ w.date }}</td>
           <td>{{ w.height_cm ?? '-' }}</td>
           <td>{{ w.weight_kg ?? '-' }}</td>
@@ -98,6 +109,14 @@ function closeDialog() {
         </tr>
       </tbody>
     </table>
+    </div>
+
+    <div v-if="totalPages > 1" class="flex justify-center mt-4">
+      <div class="join">
+        <button class="join-item btn" @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">Précédent</button>
+        <span class="join-item btn btn-active">{{ currentPage }} / {{ totalPages }}</span>
+        <button class="join-item btn" @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">Suivant</button>
+      </div>
     </div>
     
 
