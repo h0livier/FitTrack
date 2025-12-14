@@ -23,19 +23,19 @@ const completionPercent = computed(() => Math.round((weeklyGoal.value.completed 
 
 <template>
   <div class="min-h-screen bg-base-100 text-base-content p-6">
-	<FitHeader />
+    <FitHeader />
 
-	<main class="mt-6">
+    <main class="mt-6">
 
-    <h2 class="text-xl font-bold mb-2">Statistiques</h2>
-	  <section class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
-		  <StatsPanel />
-	  </section>
+      <h2 class="text-xl font-bold mb-2">Statistiques</h2>
+      <section class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+        <StatsPanel />
+      </section>
 
-	  <section class="grid grid-cols-1 lg:grid-cols-1 gap-6">
-        <table-weighings-table />
-	  </section>
-	</main>
+      <section class="grid grid-cols-1 lg:grid-cols-1 gap-6">
+          <table-weighings-table />
+      </section>
+    </main>
   </div>
 </template>
 

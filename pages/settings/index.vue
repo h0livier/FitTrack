@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-6">
+  <div class="min-h-screen bg-base-100 text-base-content p-6">
     <FitHeader />
 
     <h2 class="text-xl font-bold mb-2 mt-5">Paramètres</h2>
