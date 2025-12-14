@@ -260,7 +260,7 @@ async function importWeighingData() {
         }
 
         await saveWeighing({
-          date: dateObj.toISOString(),
+          date: dateObj.toISOString().split('T')[0],
           height_cm: height_cm === null || isNaN(height_cm) ? null : height_cm,
           weight_kg: weight_kg === null || isNaN(weight_kg) ? null : weight_kg,
           fat_percent: fat_percent === null || isNaN(fat_percent) ? null : fat_percent,
