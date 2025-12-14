@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { faPenToSquare, faTrash, faArrowRotateRight, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faTrash, faArrowRotateRight, faPlus, faCircleChevronLeft, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, onMounted, computed } from 'vue'
 import type { Weighing } from '../../composables/useWeightService'
@@ -18,14 +18,14 @@ const weighings = ref<Weighing[]>([])
 const editingWeighing = ref<Weighing | null>(null)
 const dialogOpen = ref(false)
 const isAddMode = ref(false)
-const itemsPerPage = 10
+const itemsPerPage = ref(10)
 const currentPage = ref(1)
 
-const totalPages = computed(() => Math.ceil(weighings.value.length / itemsPerPage))
+const totalPages = computed(() => Math.ceil(weighings.value.length / itemsPerPage.value))
 
 const paginatedWeighings = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
+  const start = (currentPage.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
   return weighings.value.slice(start, end)
 })
 
@@ -141,11 +141,23 @@ function closeDialog() {
     </table>
     </div>
 
-    <div v-if="totalPages > 1" class="flex justify-center mt-4">
+    <div class="flex justify-between mt-4">
+      <div>
+        <select v-model="itemsPerPage" class="select select-bordered">
+          <option :value="5">5</option>
+          <option :value="10">10</option>
+          <option :value="20">20</option>
+          <option :value="50">50</option>
+        </select>
+      </div>
       <div class="join">
-        <button class="join-item btn" @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">Précédent</button>
+        <button class="join-item btn" @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1">
+          <FontAwesomeIcon :icon="faChevronLeft" />
+        </button>
         <span class="join-item btn btn-active">{{ currentPage }} / {{ totalPages }}</span>
-        <button class="join-item btn" @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">Suivant</button>
+        <button class="join-item btn" @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages">
+          <FontAwesomeIcon :icon="faChevronRight" />
+        </button>
       </div>
     </div>
     
