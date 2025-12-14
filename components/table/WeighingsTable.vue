@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { faPenToSquare, faTrash, faArrowRotateRight, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ref, onMounted, computed } from 'vue'
 import type { Weighing } from '../../composables/useWeightService'
 import { useWeightService } from '../../composables/useWeightService'
@@ -91,8 +93,12 @@ function closeDialog() {
     <div class="flex justify-between items-center mb-2">
       <h3 class="text-lg font-semibold">Historique des pesées</h3>
       <div class="flex gap-2">
-        <button type="button" class="btn btn-sm" @click="load">Rafraîchir</button>
-        <button type="button" class="btn btn-sm btn-success" @click="openAddDialog">Ajouter</button>
+        <button type="button" class="btn btn-sm" @click="load">
+          <FontAwesomeIcon :icon="faArrowRotateRight" />
+        </button>
+        <button type="button" class="btn btn-sm btn-success" @click="openAddDialog">
+          <FontAwesomeIcon :icon="faPlus" />
+        </button>
         <!--<button type="button" class="btn btn-sm btn-warning" @click="onClear">Effacer</button>-->
       </div>
     </div>
@@ -119,8 +125,13 @@ function closeDialog() {
           <td v-if="settings.trackBodyComposition">{{ w.muscle_kg ?? '-' }}</td>
           <td v-if="settings.trackHydration">{{ w.water_percent ?? '-' }}</td>
           <td class="flex gap-2">
-            <button class="btn btn-xs btn-primary" @click="openEditDialog(w)">Éditer</button>
-            <button class="btn btn-xs btn-error" @click="onDelete(w.id)">Supprimer</button>
+            
+            <button class="btn btn-sm btn-primary" @click="openEditDialog(w)">
+              <FontAwesomeIcon :icon="faPenToSquare" />
+            </button>
+            <button class="btn btn-sm btn-error" @click="onDelete(w.id)">
+              <FontAwesomeIcon :icon="faTrash" />
+            </button>
           </td>
         </tr>
         <tr v-if="weighings.length === 0">
