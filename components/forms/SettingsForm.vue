@@ -6,12 +6,14 @@ const props = defineProps<{
   trackHydration?: boolean
   trackBodyComposition?: boolean
   defaultHeightCm?: number | null
+  showCharts?: boolean
 }>()
 
 const settingsModel = reactive({
   trackHydration: props.trackHydration ?? true,
   trackBodyComposition: props.trackBodyComposition ?? true,
   defaultHeightCm: props.defaultHeightCm ?? null as number | null,
+  showCharts: props.showCharts ?? true,
 })
 
 function onSubmit() {
@@ -19,6 +21,7 @@ function onSubmit() {
     trackHydration: settingsModel.trackHydration,
     trackBodyComposition: settingsModel.trackBodyComposition,
     defaultHeightCm: settingsModel.defaultHeightCm,
+    showCharts: settingsModel.showCharts,
   })
 }
 </script>
@@ -36,6 +39,13 @@ function onSubmit() {
       <label class="label cursor-pointer">
         <span class="label-text">Suivre la composition corporelle</span>
         <input v-model="settingsModel.trackBodyComposition" type="checkbox" class="checkbox checkbox-primary" />
+      </label>
+    </div>
+
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <span class="label-text">Afficher les graphiques</span>
+        <input v-model="settingsModel.showCharts" type="checkbox" class="checkbox checkbox-primary" />
       </label>
     </div>
 

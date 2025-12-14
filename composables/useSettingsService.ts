@@ -2,6 +2,7 @@ export type Settings = {
   trackHydration: boolean
   trackBodyComposition: boolean
   defaultHeightCm: number | null
+  showCharts: boolean
 }
 
 const STORAGE_KEY = 'fittrack:settings'
@@ -14,6 +15,7 @@ export function useSettingsService() {
     trackHydration: true,
     trackBodyComposition: true,
     defaultHeightCm: null,
+    showCharts: true,
   }
 
   function getSettings(): Settings {

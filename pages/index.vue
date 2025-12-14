@@ -4,9 +4,11 @@ import WeightBarChart from '~/components/charts/WeightBarChart.vue'
 import FitHeader from '~/components/FitHeader.vue'
 import StatsPanel from '~/components/StatsPanel.vue'
 
-const { initSettings } = useSettingsService()
+const { initSettings, getSettings } = useSettingsService()
 
 initSettings()
+
+const settings = ref(getSettings())
 
 const recentWorkouts = ref([
   { id: 1, name: 'Morning Run', duration: '35m', kcal: 320, date: '2025-11-22' },
@@ -34,7 +36,7 @@ const completionPercent = computed(() => Math.round((weeklyGoal.value.completed 
       <h2 class="text-xl font-bold mb-2">Statistiques</h2>
       <section class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
         <StatsPanel />
-        <div class="flex justify-center">
+        <div v-if="settings.showCharts" class="flex justify-center">
           <WeightBarChart />
         </div>
       </section>

@@ -17,6 +17,7 @@
           :trackHydration="settings.trackHydration"
           :trackBodyComposition="settings.trackBodyComposition"
           :defaultHeightCm="settings.defaultHeightCm"
+          :showCharts="settings.showCharts"
         />
       </div>
     </div>
