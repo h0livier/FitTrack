@@ -15,6 +15,7 @@
             updateSettings(data)
           }"
           :trackHydration="settings.trackHydration"
+          :trackBodyComposition="settings.trackBodyComposition"
           :defaultHeightCm="settings.defaultHeightCm"
         />
       </div>

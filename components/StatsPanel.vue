@@ -3,7 +3,9 @@ import { computed } from 'vue'
 import { useWeightService } from '~/composables/useWeightService'
 
 const { getWeighings } = useWeightService()
+const {getSettings} = useSettingsService()
 
+const settings = ref(getSettings())
 const weighings = computed(() => getWeighings())
 
 const stats = computed(() => {
@@ -56,13 +58,13 @@ const stats = computed(() => {
       <div class="stat-desc">kg</div>
     </div>
 
-    <div class="stat">
+    <div v-if="settings.trackBodyComposition" class="stat">
       <div class="stat-title">Masse grasse moyenne</div>
       <div class="stat-value">{{ stats.avgFat }}</div>
       <div class="stat-desc">%</div>
     </div>
 
-    <div class="stat">
+    <div v-if="settings.trackHydration" class="stat">
       <div class="stat-title">Hydratation moyenne</div>
       <div class="stat-value">{{ stats.avgWater }}</div>
       <div class="stat-desc">%</div>

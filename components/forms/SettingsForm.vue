@@ -4,17 +4,20 @@ import type { Settings } from '../../composables/useSettingsService'
 const props = defineProps<{
   saveSettings: (data: Settings) => void
   trackHydration?: boolean
+  trackBodyComposition?: boolean
   defaultHeightCm?: number | null
 }>()
 
 const settingsModel = reactive({
   trackHydration: props.trackHydration ?? true,
+  trackBodyComposition: props.trackBodyComposition ?? true,
   defaultHeightCm: props.defaultHeightCm ?? null as number | null,
 })
 
 function onSubmit() {
   props.saveSettings({
     trackHydration: settingsModel.trackHydration,
+    trackBodyComposition: settingsModel.trackBodyComposition,
     defaultHeightCm: settingsModel.defaultHeightCm,
   })
 }
@@ -26,6 +29,13 @@ function onSubmit() {
       <label class="label cursor-pointer">
         <span class="label-text">Suivre l'hydratation</span>
         <input v-model="settingsModel.trackHydration" type="checkbox" class="checkbox checkbox-primary" />
+      </label>
+    </div>
+
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <span class="label-text">Suivre la composition corporelle</span>
+        <input v-model="settingsModel.trackBodyComposition" type="checkbox" class="checkbox checkbox-primary" />
       </label>
     </div>
 

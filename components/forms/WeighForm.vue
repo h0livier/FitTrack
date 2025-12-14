@@ -15,6 +15,7 @@ const props = defineProps<{
   muscle_kg?: number | null
   water_percent?: number | null
   trackHydration?: boolean
+  trackBodyComposition?: boolean
 }>()
 
 
@@ -41,8 +42,8 @@ function onSubmit() {
     date: weighModel.date,
     height_cm: weighModel.height_cm,
     weight_kg: weighModel.weight_kg,
-    fat_percent: weighModel.fat_percent,
-    muscle_kg: weighModel.muscle_kg,
+    fat_percent: props.trackBodyComposition ? weighModel.fat_percent : null,
+    muscle_kg: props.trackBodyComposition ? weighModel.muscle_kg : null,
     water_percent: props.trackHydration ? weighModel.water_percent : null,
   })
   resetModel()
@@ -66,12 +67,12 @@ function onSubmit() {
         <input v-model="weighModel.weight_kg" type="number" step="0.1" class="input input-bordered" placeholder="ex: 70.5" />
     </div>
 
-    <div>
+    <div v-if="props.trackBodyComposition">
         <legend class="fieldset-legend">Masse grasse (%)</legend>
         <input v-model="weighModel.fat_percent" type="number" step="0.1" class="input input-bordered grow" placeholder="ex: 18.2" />
     </div>
 
-    <div class="form-control">
+    <div v-if="props.trackBodyComposition" class="form-control">
         <legend class="fieldset-legend">Masse musculaire (kg)</legend>
         <input v-model="weighModel.muscle_kg" type="number" step="0.1" class="input input-bordered" placeholder="ex: 30.0" />
     </div>

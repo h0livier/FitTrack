@@ -104,8 +104,8 @@ function closeDialog() {
           <th class="text-base font-bold">Date</th>
           <th class="text-base font-bold">Taille (cm)</th>
           <th class="text-base font-bold">Poids (kg)</th>
-          <th class="text-base font-bold">Masse grasse (%)</th>
-          <th class="text-base font-bold">Masse musculaire (kg)</th>
+          <th v-if="settings.trackBodyComposition" class="text-base font-bold">Masse grasse (%)</th>
+          <th v-if="settings.trackBodyComposition" class="text-base font-bold">Masse musculaire (kg)</th>
           <th v-if="settings.trackHydration" class="text-base font-bold">Pourcentage d'eau (%)</th>
           <th class="text-base font-bold">Actions</th>
         </tr>
@@ -115,8 +115,8 @@ function closeDialog() {
           <td>{{ w.date }}</td>
           <td>{{ w.height_cm ?? '-' }}</td>
           <td>{{ w.weight_kg ?? '-' }}</td>
-          <td>{{ w.fat_percent ?? '-' }}</td>
-          <td>{{ w.muscle_kg ?? '-' }}</td>
+          <td v-if="settings.trackBodyComposition">{{ w.fat_percent ?? '-' }}</td>
+          <td v-if="settings.trackBodyComposition">{{ w.muscle_kg ?? '-' }}</td>
           <td v-if="settings.trackHydration">{{ w.water_percent ?? '-' }}</td>
           <td class="flex gap-2">
             <button class="btn btn-xs btn-primary" @click="openEditDialog(w)">Éditer</button>
@@ -124,7 +124,7 @@ function closeDialog() {
           </td>
         </tr>
         <tr v-if="weighings.length === 0">
-          <td :colspan="settings.trackHydration ? 7 : 6" class="text-center">Aucune pesée enregistrée</td>
+          <td :colspan="4 + (settings.trackBodyComposition ? 2 : 0) + (settings.trackHydration ? 1 : 0)" class="text-center">Aucune pesée enregistrée</td>
         </tr>
       </tbody>
     </table>
@@ -165,6 +165,7 @@ function closeDialog() {
         :muscle_kg="editingWeighing?.muscle_kg"
         :water_percent="editingWeighing?.water_percent"
         :trackHydration="settings.trackHydration"
+        :trackBodyComposition="settings.trackBodyComposition"
       />
     </AppDialog>
   </div>

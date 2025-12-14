@@ -1,5 +1,6 @@
 export type Settings = {
   trackHydration: boolean
+  trackBodyComposition: boolean
   defaultHeightCm: number | null
 }
 
@@ -11,6 +12,7 @@ export function useSettingsService() {
 
   const defaultSettings: Settings = {
     trackHydration: true,
+    trackBodyComposition: true,
     defaultHeightCm: null,
   }
 
