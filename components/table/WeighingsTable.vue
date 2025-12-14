@@ -5,8 +5,12 @@ import { useWeightService } from '../../composables/useWeightService'
 import AppDialog from '../AppDialog.vue'
 import WeighForm from '../forms/WeighForm.vue'
 
+import { useSettingsService } from '../../composables/useSettingsService'
+
 const { getWeighings, clearWeighings, saveWeighing, deleteWeighing } = useWeightService()
 const { getSettings } = useSettingsService()
+
+const settings = ref(getSettings())
 
 const weighings = ref<Weighing[]>([])
 const editingWeighing = ref<Weighing | null>(null)
@@ -56,7 +60,7 @@ function openEditDialog(weighing: Weighing) {
 }
 
 function openAddDialog() {
-  const height = getSettings().defaultHeightCm
+  const height = settings.value.defaultHeightCm
   if (height) {
     editingWeighing.value = {
       id: '',
@@ -102,7 +106,7 @@ function closeDialog() {
           <th class="text-base font-bold">Poids (kg)</th>
           <th class="text-base font-bold">Masse grasse (%)</th>
           <th class="text-base font-bold">Masse musculaire (kg)</th>
-          <th class="text-base font-bold">Pourcentage d'eau (%)</th>
+          <th v-if="settings.trackHydration" class="text-base font-bold">Pourcentage d'eau (%)</th>
           <th class="text-base font-bold">Actions</th>
         </tr>
       </thead>
@@ -113,14 +117,14 @@ function closeDialog() {
           <td>{{ w.weight_kg ?? '-' }}</td>
           <td>{{ w.fat_percent ?? '-' }}</td>
           <td>{{ w.muscle_kg ?? '-' }}</td>
-          <td>{{ w.water_percent ?? '-' }}</td>
+          <td v-if="settings.trackHydration">{{ w.water_percent ?? '-' }}</td>
           <td class="flex gap-2">
             <button class="btn btn-xs btn-primary" @click="openEditDialog(w)">Éditer</button>
             <button class="btn btn-xs btn-error" @click="onDelete(w.id)">Supprimer</button>
           </td>
         </tr>
         <tr v-if="weighings.length === 0">
-          <td colspan="7" class="text-center">Aucune pesée enregistrée</td>
+          <td :colspan="settings.trackHydration ? 7 : 6" class="text-center">Aucune pesée enregistrée</td>
         </tr>
       </tbody>
     </table>
@@ -160,6 +164,7 @@ function closeDialog() {
         :fat_percent="editingWeighing?.fat_percent"
         :muscle_kg="editingWeighing?.muscle_kg"
         :water_percent="editingWeighing?.water_percent"
+        :trackHydration="settings.trackHydration"
       />
     </AppDialog>
   </div>

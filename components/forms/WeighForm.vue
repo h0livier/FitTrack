@@ -14,6 +14,7 @@ const props = defineProps<{
   fat_percent?: number | null
   muscle_kg?: number | null
   water_percent?: number | null
+  trackHydration?: boolean
 }>()
 
 
@@ -42,7 +43,7 @@ function onSubmit() {
     weight_kg: weighModel.weight_kg,
     fat_percent: weighModel.fat_percent,
     muscle_kg: weighModel.muscle_kg,
-    water_percent: weighModel.water_percent,
+    water_percent: props.trackHydration ? weighModel.water_percent : null,
   })
   resetModel()
 }
@@ -75,7 +76,7 @@ function onSubmit() {
         <input v-model="weighModel.muscle_kg" type="number" step="0.1" class="input input-bordered" placeholder="ex: 30.0" />
     </div>
 
-    <div>
+    <div v-if="props.trackHydration">
         <legend class="fieldset-legend">Pourcentage d'eau (%)</legend>
         <input v-model="weighModel.water_percent" type="number" step="0.1" class="input input-bordered grow" placeholder="ex: 60.0" />
     </div>
