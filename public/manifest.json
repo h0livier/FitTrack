@@ -1,0 +1,17 @@
+{
+  "name": "FitTrack",
+  "short_name": "FitTrack",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "72x72",
+      "type": "image/ico"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
