@@ -2,7 +2,10 @@
 import { ref, computed } from 'vue'
 import FitHeader from '~/components/FitHeader.vue'
 import StatsPanel from '~/components/StatsPanel.vue'
-import WeeklySummary from '~/components/WeeklySummary.vue'
+
+const { initSettings } = useSettingsService()
+
+initSettings()
 
 const recentWorkouts = ref([
   { id: 1, name: 'Morning Run', duration: '35m', kcal: 320, date: '2025-11-22' },

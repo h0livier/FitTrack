@@ -6,6 +6,7 @@ import AppDialog from '../AppDialog.vue'
 import WeighForm from '../forms/WeighForm.vue'
 
 const { getWeighings, clearWeighings, saveWeighing, deleteWeighing } = useWeightService()
+const { getSettings } = useSettingsService()
 
 const weighings = ref<Weighing[]>([])
 const editingWeighing = ref<Weighing | null>(null)
@@ -55,7 +56,21 @@ function openEditDialog(weighing: Weighing) {
 }
 
 function openAddDialog() {
-  editingWeighing.value = null
+  const height = getSettings().defaultHeightCm
+  if (height) {
+    editingWeighing.value = {
+      id: '',
+      date: new Date().toISOString().slice(0, 10),
+      height_cm: height,
+      weight_kg: null,
+      fat_percent: null,
+      muscle_kg: null,
+      water_percent: null,
+      createdAt: new Date().toISOString(),
+    }
+  } else
+    editingWeighing.value = null
+
   isAddMode.value = true
   dialogOpen.value = true
 }

@@ -2,7 +2,25 @@
   <div class="min-h-screen bg-base-100 text-base-content p-6">
     <FitHeader />
 
-    <h2 class="text-xl font-bold mb-2 mt-5">Paramètres</h2>
+    <h2 class="text-xl font-bold mb-2 mt-6">Paramètres globaux</h2>
+
+    <!-- Section Paramètres -->
+    <div class="card bg-base-200 mb-6">
+      <div class="card-body">
+        <h2 class="card-title text-xl">
+          Paramètres des pesées
+        </h2>
+        <SettingsForm
+          :saveSettings="(data) => {
+            updateSettings(data)
+          }"
+          :trackHydration="settings.trackHydration"
+          :defaultHeightCm="settings.defaultHeightCm"
+        />
+      </div>
+    </div>
+
+    <h2 class="text-xl font-bold mb-2 mt-5">Paramètres des données</h2>
     <!-- Section Export CSV -->
     <div class="card bg-base-200 mb-6">
       <div class="card-body">
@@ -112,10 +130,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useWeightService } from '~/composables/useWeightService'
+import { useSettingsService } from '~/composables/useSettingsService'
+import SettingsForm from '~/components/forms/SettingsForm.vue'
 
 const { getWeighings, saveWeighing } = useWeightService()
+const { getSettings, updateSettings, initSettings } = useSettingsService()
+
+const settings = ref(getSettings())
+
+onMounted(() => {
+  initSettings()
+  settings.value = getSettings()
+})
 
 const isExporting = ref(false)
 const isImporting = ref(false)
