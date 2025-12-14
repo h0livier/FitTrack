@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import WeightBarChart from '~/components/charts/WeightBarChart.vue'
 import FitHeader from '~/components/FitHeader.vue'
 import StatsPanel from '~/components/StatsPanel.vue'
 
@@ -33,6 +34,9 @@ const completionPercent = computed(() => Math.round((weeklyGoal.value.completed 
       <h2 class="text-xl font-bold mb-2">Statistiques</h2>
       <section class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
         <StatsPanel />
+        <div class="flex justify-center">
+          <WeightBarChart />
+        </div>
       </section>
 
       <section class="grid grid-cols-1 lg:grid-cols-1 gap-6">
