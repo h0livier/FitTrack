@@ -1,14 +1,12 @@
 <template>
   <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-8">Paramètres</h1>
+    <FitHeader />
 
+    <h2 class="text-xl font-bold mb-2 mt-5">Paramètres</h2>
     <!-- Section Export CSV -->
     <div class="card bg-base-200 mb-6">
       <div class="card-body">
         <h2 class="card-title text-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
           Exporter les données
         </h2>
         <p class="text-base-content/75 mb-4">
@@ -21,7 +19,7 @@
             :disabled="isExporting"
           >
             <span v-if="isExporting" class="loading loading-spinner loading-sm"></span>
-            {{ isExporting ? 'Export en cours...' : '📥 Exporter en CSV' }}
+            {{ isExporting ? 'Export en cours...' : 'Exporter en CSV' }}
           </button>
         </div>
         <div v-if="exportMessage" class="alert alert-info mt-4">
@@ -34,19 +32,13 @@
     <div class="card bg-base-200">
       <div class="card-body">
         <h2 class="card-title text-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
           Importer les données
         </h2>
         <p class="text-base-content/75 mb-4">
-          Importez vos données de poids à partir d'un fichier CSV. Colonnes requises: date. Colonnes optionnelles: height_cm, weight_kg, fat_percent, muscle_kg, water_percent.
+          Importez vos données de poids à partir d'un fichier CSV. Colonnes requises: date. <br />Colonnes optionnelles: height_cm, weight_kg, fat_percent, muscle_kg, water_percent.
         </p>
         <div class="space-y-4">
           <div class="form-control">
-            <label class="label" for="csv-file">
-              <span class="label-text">Sélectionner un fichier CSV</span>
-            </label>
             <input
               id="csv-file"
               type="file"
@@ -99,7 +91,7 @@
               :disabled="!selectedFile || isImporting || csvPreview.length === 0"
             >
               <span v-if="isImporting" class="loading loading-spinner loading-sm"></span>
-              {{ isImporting ? 'Import en cours...' : '📤 Importer' }}
+              {{ isImporting ? 'Import en cours...' : 'Importer' }}
             </button>
             <button
               v-if="selectedFile"
