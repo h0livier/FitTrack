@@ -5,6 +5,7 @@ export type Weighing = {
   weight_kg: number | null
   fat_percent: number | null
   muscle_kg: number | null
+  water_percent: number | null
   createdAt: string
 }
 

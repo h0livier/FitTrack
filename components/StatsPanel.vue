@@ -13,15 +13,18 @@ const stats = computed(() => {
       count: 0,
       avgWeight: 0,
       avgFat: 0,
+      avgWater: 0,
       weightChange: 0,
     }
   }
   
   const weights = items.map(w => w.weight_kg ?? 0).filter(w => w > 0)
   const fats = items.map(w => w.fat_percent ?? 0).filter(f => f > 0)
+  const waters = items.map(w => w.water_percent ?? 0).filter(w => w > 0)
   
   const avgWeight = weights.length > 0 ? weights.reduce((a, b) => a + b, 0) / weights.length : 0
   const avgFat = fats.length > 0 ? fats.reduce((a, b) => a + b, 0) / fats.length : 0
+  const avgWater = waters.length > 0 ? waters.reduce((a, b) => a + b, 0) / waters.length : 0
   
   // sort by date
   const sorted = items.slice().sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -33,6 +36,7 @@ const stats = computed(() => {
     count: items.length,
     avgWeight: Math.round(avgWeight * 10) / 10,
     avgFat: Math.round(avgFat * 10) / 10,
+    avgWater: Math.round(avgWater * 10) / 10,
     weightChange: Math.round(weightChange * 10) / 10,
   }
 })
@@ -55,6 +59,12 @@ const stats = computed(() => {
     <div class="stat">
       <div class="stat-title">Masse grasse moyenne</div>
       <div class="stat-value">{{ stats.avgFat }}</div>
+      <div class="stat-desc">%</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-title">Hydratation moyenne</div>
+      <div class="stat-value">{{ stats.avgWater }}</div>
       <div class="stat-desc">%</div>
     </div>
 

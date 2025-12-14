@@ -26,6 +26,8 @@ const completionPercent = computed(() => Math.round((weeklyGoal.value.completed 
 	<FitHeader />
 
 	<main class="mt-6">
+
+    <h2 class="text-xl font-bold mb-2">Statistiques</h2>
 	  <section class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
 		  <StatsPanel />
 	  </section>

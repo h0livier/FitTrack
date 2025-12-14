@@ -6,6 +6,7 @@
       <NuxtLink to="/" class="btn btn-ghost normal-case text-xl">FitTrack</NuxtLink>
     </div>
     <div class="flex-none gap-2">
+      <NuxtLink to="/settings" class="btn btn-ghost">Paramètres</NuxtLink>
       <!--
       <NuxtLink to="/weights" class="btn btn-ghost">Weights</NuxtLink>
       <NuxtLink to="/activities" class="btn btn-ghost">Activities</NuxtLink>
