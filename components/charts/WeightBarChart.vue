@@ -53,7 +53,7 @@ const chartData = computed(() => {
 </script>
 <template>
 <Line
-    class="w-3/4 lg:w-2/4"
+    class="w-full md:w-3/4 lg:w-2/4 h-full md:h-[50vh] lg:h-[33vh]"
     id="weight-bar-chart"
     :options="chartOptions"
     :data="chartData"
