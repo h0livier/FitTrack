@@ -36,7 +36,7 @@ const completionPercent = computed(() => Math.round((weeklyGoal.value.completed 
       <h2 class="text-xl font-bold mb-2">Statistiques</h2>
       <section class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
         <StatsPanel />
-        <div v-if="settings.showCharts" class="flex justify-center">
+        <div v-if="settings.showCharts">
           <WeightBarChart />
         </div>
       </section>
